@@ -17,7 +17,9 @@
 package com.ntduc.basemvvmarchitecture.repository
 
 import androidx.annotation.WorkerThread
+import com.ntduc.basemvvmarchitecture.R
 import com.ntduc.basemvvmarchitecture.mapper.ErrorResponseMapper
+import com.ntduc.basemvvmarchitecture.model.Document
 import com.ntduc.basemvvmarchitecture.model.Poster
 import com.ntduc.basemvvmarchitecture.model.PosterErrorResponse
 import com.ntduc.basemvvmarchitecture.network.DisneyService
@@ -34,42 +36,63 @@ import kotlinx.coroutines.flow.onCompletion
 import timber.log.Timber
 
 class MainRepository constructor(
-  private val disneyService: DisneyService,
-  private val posterDao: PosterDao
+    private val disneyService: DisneyService,
+    private val posterDao: PosterDao
 ) : Repository {
 
-  init {
-    Timber.d("Injection MainRepository")
-  }
-
-  @WorkerThread
-  fun loadDisneyPosters(
-    onSuccess: () -> Unit,
-  ) = flow {
-    val posters: List<Poster> = posterDao.getPosterList()
-    if (posters.isEmpty()) {
-      // request API network request asynchronously.
-      disneyService.fetchDisneyPosterList()
-        // handles the success case when the API request gets a successful response.
-        .suspendOnSuccess {
-          posterDao.insertPosterList(data)
-          emit(data)
-        }
-        /**
-         * handles error cases when the API request gets an error response.
-         * e.g., internal server error.
-         * maps the [ApiResponse.Failure.Error] to the [PosterErrorResponse] using the mapper.
-         */
-        .onError(ErrorResponseMapper) {
-          Timber.d("[Code: $code]: $message")
-        }
-        // handles exceptional cases when the API request gets an exception response.
-        // e.g., network connection error.
-        .onException {
-          Timber.d(message())
-        }
-    } else {
-      emit(posters)
+    init {
+        Timber.d("Injection MainRepository")
     }
-  }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO)
+
+    @WorkerThread
+    fun loadDisneyPosters(
+        onSuccess: () -> Unit,
+    ) = flow {
+        val posters: List<Poster> = posterDao.getPosterList()
+        if (posters.isEmpty()) {
+            // request API network request asynchronously.
+            disneyService.fetchDisneyPosterList()
+                // handles the success case when the API request gets a successful response.
+                .suspendOnSuccess {
+                    posterDao.insertPosterList(data)
+                    emit(data)
+                }
+                /**
+                 * handles error cases when the API request gets an error response.
+                 * e.g., internal server error.
+                 * maps the [ApiResponse.Failure.Error] to the [PosterErrorResponse] using the mapper.
+                 */
+                .onError(ErrorResponseMapper) {
+                    Timber.d("[Code: $code]: $message")
+                }
+                // handles exceptional cases when the API request gets an exception response.
+                // e.g., network connection error.
+                .onException {
+                    Timber.d(message())
+                }
+        } else {
+            emit(posters)
+        }
+    }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO)
+
+    @WorkerThread
+    fun loadDocuments(
+        onSuccess: () -> Unit,
+    ) = flow {
+        val posters: List<Document> = getDocumentList()
+        emit(posters)
+    }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO)
+
+    private fun getDocumentList(): List<Document> {
+        val documents = arrayListOf<Document>()
+        documents.add(Document(id = 0, name = "All", src = R.drawable.ic_all_document_50dp))
+        documents.add(Document(id = 1, name = "PDF", src = R.drawable.ic_pdf_50dp))
+        documents.add(Document(id = 2, name = "XLS", src = R.drawable.ic_xls_50dp))
+        documents.add(Document(id = 3, name = "PPT", src = R.drawable.ic_ppt_50dp))
+        documents.add(Document(id = 4, name = "TXT", src = R.drawable.ic_txt_50dp))
+        documents.add(Document(id = 5, name = "DOC", src = R.drawable.ic_doc_50dp))
+        documents.add(Document(id = 6, name = "WPS", src = R.drawable.ic_wps_50dp))
+
+        return documents
+    }
 }

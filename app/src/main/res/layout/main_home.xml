@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ntduc.basemvvmarchitecture.view.ui.main.MainViewModel" />
+
+        <variable
+            name="documentAdapter"
+            type="com.ntduc.basemvvmarchitecture.view.adapter.DocumentAdapter" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_10">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/document_title"
+                style="@style/TextTitleStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:maxEms="15"
+                android:text="@string/document" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_document"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="4dp"
+                    app:adapter="@{documentAdapter}"
+                    app:adapterDocumentList="@{viewModel.documentList}"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:listitem="@layout/item_document" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/media_title"
+                style="@style/TextTitleStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:maxEms="15"
+                android:text="@string/media" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:background="@color/main_20"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/main_20"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_media"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/app_title"
+                style="@style/TextTitleStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:maxEms="15"
+                android:text="@string/app" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:background="@color/main_20"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/main_20"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+</layout>

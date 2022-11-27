@@ -18,6 +18,7 @@ package com.ntduc.basemvvmarchitecture.view.ui.main
 
 import androidx.databinding.Bindable
 import androidx.lifecycle.viewModelScope
+import com.ntduc.basemvvmarchitecture.model.Document
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.asBindingProperty
 import com.skydoves.bindables.bindingProperty
@@ -37,8 +38,15 @@ class MainViewModel constructor(
     onSuccess = { isLoading = false }
   )
 
+  private val documentListFlow = mainRepository.loadDocuments (
+    onSuccess = { isLoading = false }
+  )
+
   @get:Bindable
   val posterList: List<Poster> by posterListFlow.asBindingProperty(viewModelScope, emptyList())
+
+  @get:Bindable
+  val documentList: List<Document> by documentListFlow.asBindingProperty(viewModelScope, emptyList())
 
   init {
     Timber.d("injection MainViewModel")

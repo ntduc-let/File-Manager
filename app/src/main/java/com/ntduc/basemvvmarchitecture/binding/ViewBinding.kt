@@ -47,6 +47,14 @@ object ViewBinding {
   }
 
   @JvmStatic
+  @BindingAdapter("loadImage")
+  fun bindLoadImage(view: AppCompatImageView, drawable: Int?) {
+    Glide.with(view.context)
+      .load(drawable)
+      .into(view)
+  }
+
+  @JvmStatic
   @BindingAdapter("pagerAdapter")
   fun bindPagerAdapter(view: ViewPager2, adapter: FragmentStateAdapter) {
     view.adapter = adapter

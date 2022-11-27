@@ -22,7 +22,7 @@
     android:id="@+id/detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/main_10"
     android:fitsSystemWindows="false">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -34,8 +34,8 @@
       <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        app:contentScrim="@color/colorPrimary"
+        android:background="@color/main_10"
+        app:contentScrim="@color/main"
         app:expandedTitleGravity="top|left"
         app:expandedTitleTextAppearance="@style/CollapsedExpandedTitleText"
         app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -43,7 +43,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:background="@color/background">
+          android:background="@color/main_10">
 
           <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/profile_detail_background"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
-            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="@color/main"
             app:layout_constraintBottom_toBottomOf="@id/profile_detail_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_detail_background"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="60dp"
             android:visibility="gone"
-            app:cardBackgroundColor="@color/background"
+            app:cardBackgroundColor="@color/main_10"
             app:cardCornerRadius="12dp"
             app:cardElevation="16dp"
             app:layout_constraintBottom_toBottomOf="parent"

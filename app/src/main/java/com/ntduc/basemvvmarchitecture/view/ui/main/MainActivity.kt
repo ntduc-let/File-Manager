@@ -17,21 +17,32 @@
 package com.ntduc.basemvvmarchitecture.view.ui.main
 
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ntduc.basemvvmarchitecture.R
 import com.skydoves.bindables.BindingActivity
 import com.ntduc.basemvvmarchitecture.databinding.ActivityMainBinding
 import com.ntduc.basemvvmarchitecture.extensions.applyExitMaterialTransform
+import com.ntduc.basemvvmarchitecture.view.adapter.DocumentAdapter
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    applyExitMaterialTransform()
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        applyExitMaterialTransform()
+        super.onCreate(savedInstanceState)
 
-    binding {
-      pagerAdapter = MainPagerAdapter(this@MainActivity)
-      vm = getViewModel()
+        binding {
+            mainContent.documentAdapter = DocumentAdapter()
+            mainContent.viewModel = getViewModel()
+        }
+
+        binding {
+            (mainContent.rcvDocument.layoutManager as GridLayoutManager).spanSizeLookup =
+                object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (position == 0) 3 else 1
+                    }
+                }
+        }
     }
-  }
 }

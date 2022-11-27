@@ -18,8 +18,10 @@ package com.ntduc.basemvvmarchitecture.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ntduc.basemvvmarchitecture.model.Document
 import com.skydoves.baserecyclerviewadapter.BaseAdapter
 import com.ntduc.basemvvmarchitecture.model.Poster
+import com.ntduc.basemvvmarchitecture.view.adapter.DocumentAdapter
 import com.ntduc.basemvvmarchitecture.view.adapter.PosterAdapter
 import com.ntduc.basemvvmarchitecture.view.adapter.PosterCircleAdapter
 import com.ntduc.basemvvmarchitecture.view.adapter.PosterLineAdapter
@@ -27,39 +29,49 @@ import com.skydoves.whatif.whatIfNotNullAs
 import com.skydoves.whatif.whatIfNotNullOrEmpty
 
 object RecyclerViewBinding {
-  @JvmStatic
-  @BindingAdapter("adapter")
-  fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter) {
-    view.adapter = baseAdapter
-  }
-
-  @JvmStatic
-  @BindingAdapter("adapterPosterList")
-  fun bindAdapterPosterList(view: RecyclerView, posters: List<Poster>?) {
-    posters.whatIfNotNullOrEmpty { items ->
-      view.adapter.whatIfNotNullAs<PosterAdapter> { adapter ->
-        adapter.addPosterList(items)
-      }
+    @JvmStatic
+    @BindingAdapter("adapter")
+    fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter) {
+        view.adapter = baseAdapter
     }
-  }
 
-  @JvmStatic
-  @BindingAdapter("adapterPosterLineList")
-  fun bindAdapterPosterLineList(view: RecyclerView, posters: List<Poster>?) {
-    posters.whatIfNotNullOrEmpty { items ->
-      view.adapter.whatIfNotNullAs<PosterLineAdapter> { adapter ->
-        adapter.addPosterList(items)
-      }
+    @JvmStatic
+    @BindingAdapter("adapterPosterList")
+    fun bindAdapterPosterList(view: RecyclerView, posters: List<Poster>?) {
+        posters.whatIfNotNullOrEmpty { items ->
+            view.adapter.whatIfNotNullAs<PosterAdapter> { adapter ->
+                adapter.addPosterList(items)
+            }
+        }
     }
-  }
 
-  @JvmStatic
-  @BindingAdapter("adapterPosterCircleList")
-  fun bindAdapterPosterCircleList(view: RecyclerView, posters: List<Poster>?) {
-    posters.whatIfNotNullOrEmpty { items ->
-      view.adapter.whatIfNotNullAs<PosterCircleAdapter> { adapter ->
-        adapter.addPosterList(items)
-      }
+    @JvmStatic
+    @BindingAdapter("adapterPosterLineList")
+    fun bindAdapterPosterLineList(view: RecyclerView, posters: List<Poster>?) {
+        posters.whatIfNotNullOrEmpty { items ->
+            view.adapter.whatIfNotNullAs<PosterLineAdapter> { adapter ->
+                adapter.addPosterList(items)
+            }
+        }
     }
-  }
+
+    @JvmStatic
+    @BindingAdapter("adapterPosterCircleList")
+    fun bindAdapterPosterCircleList(view: RecyclerView, posters: List<Poster>?) {
+        posters.whatIfNotNullOrEmpty { items ->
+            view.adapter.whatIfNotNullAs<PosterCircleAdapter> { adapter ->
+                adapter.addPosterList(items)
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapterDocumentList")
+    fun bindAdapterDocumentList(view: RecyclerView, documents: List<Document>?) {
+        documents.whatIfNotNullOrEmpty { items ->
+            view.adapter.whatIfNotNullAs<DocumentAdapter> { adapter ->
+                adapter.addDocumentList(items)
+            }
+        }
+    }
 }

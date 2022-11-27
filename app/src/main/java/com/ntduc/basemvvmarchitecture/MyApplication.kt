@@ -29,13 +29,13 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class DisneyApplication : Application() {
+class MyApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
 
     startKoin {
-      androidContext(this@DisneyApplication)
+      androidContext(this@MyApplication)
       modules(networkModule)
       modules(persistenceModule)
       modules(repositoryModule)
