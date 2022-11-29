@@ -18,7 +18,9 @@ package com.ntduc.basemvvmarchitecture.view.ui.main
 
 import androidx.databinding.Bindable
 import androidx.lifecycle.viewModelScope
+import com.ntduc.basemvvmarchitecture.model.App
 import com.ntduc.basemvvmarchitecture.model.Document
+import com.ntduc.basemvvmarchitecture.model.Media
 import com.skydoves.bindables.BindingViewModel
 import com.skydoves.bindables.asBindingProperty
 import com.skydoves.bindables.bindingProperty
@@ -27,28 +29,51 @@ import com.ntduc.basemvvmarchitecture.repository.MainRepository
 import timber.log.Timber
 
 class MainViewModel constructor(
-  mainRepository: MainRepository
+    mainRepository: MainRepository
 ) : BindingViewModel() {
 
-  @get:Bindable
-  var isLoading: Boolean by bindingProperty(true)
-    private set
+    @get:Bindable
+    var isLoading: Boolean by bindingProperty(true)
+        private set
 
-  private val posterListFlow = mainRepository.loadDisneyPosters(
-    onSuccess = { isLoading = false }
-  )
+    private val posterListFlow = mainRepository.loadDisneyPosters(
+        onSuccess = { isLoading = false }
+    )
 
-  private val documentListFlow = mainRepository.loadDocuments (
-    onSuccess = { isLoading = false }
-  )
+    private val documentListFlow = mainRepository.loadDocuments(
+        onSuccess = { isLoading = false }
+    )
 
-  @get:Bindable
-  val posterList: List<Poster> by posterListFlow.asBindingProperty(viewModelScope, emptyList())
+    private val mediaListFlow = mainRepository.loadMedias(
+        onSuccess = { isLoading = false }
+    )
 
-  @get:Bindable
-  val documentList: List<Document> by documentListFlow.asBindingProperty(viewModelScope, emptyList())
+    private val appListFlow = mainRepository.loadApps(
+        onSuccess = { isLoading = false }
+    )
 
-  init {
-    Timber.d("injection MainViewModel")
-  }
+    @get:Bindable
+    val posterList: List<Poster> by posterListFlow.asBindingProperty(viewModelScope, emptyList())
+
+    @get:Bindable
+    val documentList: List<Document> by documentListFlow.asBindingProperty(
+        viewModelScope,
+        emptyList()
+    )
+
+    @get:Bindable
+    val mediaList: List<Media> by mediaListFlow.asBindingProperty(
+        viewModelScope,
+        emptyList()
+    )
+
+    @get:Bindable
+    val appList: List<App> by appListFlow.asBindingProperty(
+        viewModelScope,
+        emptyList()
+    )
+
+    init {
+        Timber.d("injection MainViewModel")
+    }
 }

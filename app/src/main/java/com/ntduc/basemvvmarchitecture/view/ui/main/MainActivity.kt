@@ -22,7 +22,10 @@ import com.ntduc.basemvvmarchitecture.R
 import com.skydoves.bindables.BindingActivity
 import com.ntduc.basemvvmarchitecture.databinding.ActivityMainBinding
 import com.ntduc.basemvvmarchitecture.extensions.applyExitMaterialTransform
+import com.ntduc.basemvvmarchitecture.view.adapter.AppAdapter
 import com.ntduc.basemvvmarchitecture.view.adapter.DocumentAdapter
+import com.ntduc.basemvvmarchitecture.view.adapter.MediaAdapter
+import com.ntduc.basemvvmarchitecture.view.ui.details.defaultphonecard.DefaultPhoneCardDeltailActivity
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -33,6 +36,8 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
         binding {
             mainContent.documentAdapter = DocumentAdapter()
+            mainContent.mediaAdapter = MediaAdapter()
+            mainContent.appAdapter = AppAdapter()
             mainContent.viewModel = getViewModel()
         }
 
@@ -40,9 +45,13 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             (mainContent.rcvDocument.layoutManager as GridLayoutManager).spanSizeLookup =
                 object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return if (position == 0) 3 else 1
+                        return if (position == 0) 2 else 1
                     }
                 }
+        }
+
+        binding.mainContent.defaultPhoneCard.setOnClickListener {
+            DefaultPhoneCardDeltailActivity.startActivity(this, binding.mainContent.defaultPhoneCard)
         }
     }
 }

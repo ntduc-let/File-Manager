@@ -18,13 +18,12 @@ package com.ntduc.basemvvmarchitecture.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ntduc.basemvvmarchitecture.model.App
 import com.ntduc.basemvvmarchitecture.model.Document
+import com.ntduc.basemvvmarchitecture.model.Media
 import com.skydoves.baserecyclerviewadapter.BaseAdapter
 import com.ntduc.basemvvmarchitecture.model.Poster
-import com.ntduc.basemvvmarchitecture.view.adapter.DocumentAdapter
-import com.ntduc.basemvvmarchitecture.view.adapter.PosterAdapter
-import com.ntduc.basemvvmarchitecture.view.adapter.PosterCircleAdapter
-import com.ntduc.basemvvmarchitecture.view.adapter.PosterLineAdapter
+import com.ntduc.basemvvmarchitecture.view.adapter.*
 import com.skydoves.whatif.whatIfNotNullAs
 import com.skydoves.whatif.whatIfNotNullOrEmpty
 
@@ -71,6 +70,26 @@ object RecyclerViewBinding {
         documents.whatIfNotNullOrEmpty { items ->
             view.adapter.whatIfNotNullAs<DocumentAdapter> { adapter ->
                 adapter.addDocumentList(items)
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapterMediaList")
+    fun bindAdapterMediaList(view: RecyclerView, medias: List<Media>?) {
+        medias.whatIfNotNullOrEmpty { items ->
+            view.adapter.whatIfNotNullAs<MediaAdapter> { adapter ->
+                adapter.addMediaList(items)
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapterAppList")
+    fun bindAdapterAppList(view: RecyclerView, apps: List<App>?) {
+        apps.whatIfNotNullOrEmpty { items ->
+            view.adapter.whatIfNotNullAs<AppAdapter> { adapter ->
+                adapter.addAppList(items)
             }
         }
     }

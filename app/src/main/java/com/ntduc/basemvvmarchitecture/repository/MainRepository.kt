@@ -19,9 +19,7 @@ package com.ntduc.basemvvmarchitecture.repository
 import androidx.annotation.WorkerThread
 import com.ntduc.basemvvmarchitecture.R
 import com.ntduc.basemvvmarchitecture.mapper.ErrorResponseMapper
-import com.ntduc.basemvvmarchitecture.model.Document
-import com.ntduc.basemvvmarchitecture.model.Poster
-import com.ntduc.basemvvmarchitecture.model.PosterErrorResponse
+import com.ntduc.basemvvmarchitecture.model.*
 import com.ntduc.basemvvmarchitecture.network.DisneyService
 import com.ntduc.basemvvmarchitecture.persistence.PosterDao
 import com.skydoves.sandwich.ApiResponse
@@ -94,5 +92,38 @@ class MainRepository constructor(
         documents.add(Document(id = 6, name = "WPS", src = R.drawable.ic_wps_50dp))
 
         return documents
+    }
+
+    @WorkerThread
+    fun loadMedias(
+        onSuccess: () -> Unit,
+    ) = flow {
+        val posters: List<Media> = getMediaList()
+        emit(posters)
+    }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO)
+
+    private fun getMediaList(): List<Media> {
+        val medias = arrayListOf<Media>()
+        medias.add(Media(id = 0, name = "Image", src = R.drawable.ic_image_50dp))
+        medias.add(Media(id = 1, name = "Video", src = R.drawable.ic_video_50dp))
+        medias.add(Media(id = 2, name = "Audio", src = R.drawable.ic_audio_50dp))
+
+        return medias
+    }
+
+    @WorkerThread
+    fun loadApps(
+        onSuccess: () -> Unit,
+    ) = flow {
+        val posters: List<App> = getAppList()
+        emit(posters)
+    }.onCompletion { onSuccess() }.flowOn(Dispatchers.IO)
+
+    private fun getAppList(): List<App> {
+        val apps = arrayListOf<App>()
+        apps.add(App(id = 0, name = "Install App", src = R.drawable.ic_app_50dp))
+        apps.add(App(id = 1, name = "APK", src = R.drawable.ic_apk_50dp))
+
+        return apps
     }
 }

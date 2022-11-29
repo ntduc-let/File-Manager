@@ -1,12 +1,13 @@
 <resources>
-  <string name="app_name">File Manager</string>
-  <string name="database">DisneyMotions.db</string>
-  <string name="menu_home">Home</string>
-  <string name="menu_library">Library</string>
-  <string name="menu_radio">Radio</string>
-  <string name="poster_transition">poster_shared_element_container</string>
-  <string name="plot">Plot</string>
-  <string name="document">Document</string>
-  <string name="media">Media</string>
-  <string name="app">App</string>
+    <string name="app_name">File Manager</string>
+    <string name="database">DisneyMotions.db</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_library">Library</string>
+    <string name="menu_radio">Radio</string>
+    <string name="poster_transition">poster_shared_element_container</string>
+    <string name="plot">Plot</string>
+    <string name="document">Document</string>
+    <string name="media">Media</string>
+    <string name="app">App</string>
+    <string name="default_phone_card">Default phone card</string>
 </resources>
